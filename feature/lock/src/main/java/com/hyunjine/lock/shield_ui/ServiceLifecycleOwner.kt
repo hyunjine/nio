@@ -1,15 +1,11 @@
-package com.hyunjine.lock
+package com.hyunjine.lock.shield_ui
 
 import android.os.Bundle
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistry
 import androidx.savedstate.SavedStateRegistryController
 import androidx.savedstate.SavedStateRegistryOwner
-import com.hyunjine.common.log.wlog
 
 
 class ServiceLifecycleOwner : SavedStateRegistryOwner {

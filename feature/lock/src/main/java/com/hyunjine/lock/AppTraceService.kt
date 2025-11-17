@@ -3,14 +3,27 @@ package com.hyunjine.lock
 
 import android.accessibilityservice.AccessibilityService
 import android.view.accessibility.AccessibilityEvent
-import com.hyunjine.common.log.wlog
+import com.hyunjine.lock.shield_ui.DeviceShield
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+@AndroidEntryPoint
 class AppTraceService : AccessibilityService(), CoroutineScope {
+    @Inject
+    lateinit var repository: LockRepository
+
+    private val viewModel: AppTraceViewModel by lazy {
+        AppTraceViewModel(coroutineScope = this, repository = repository)
+    }
+
     private val deviceShield: DeviceShield by lazy {
         DeviceShield(this)
     }
@@ -20,26 +33,29 @@ class AppTraceService : AccessibilityService(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    companion object {
-        private val LOCK_APP_PACKAGES: Set<String> = setOf(
-            "com.instagram.android", // 인스타
-            "com.google.android.youtube", // 유튜브
-            "com.sec.android.app.sbrowser" // 삼성 인터넷
-        )
+    override fun onCreate() {
+        super.onCreate()
+        launch {
+            viewModel.screenLockState.collectLatest { isShow ->
+                if (isShow) {
+                    deviceShield.show()
+                } else {
+                    deviceShield.hide()
+                }
+            }
+        }
     }
 
+    override fun onServiceConnected() {
+        super.onServiceConnected()
 
-    override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event == null) return
-        if (event.eventType != AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) return
-
-        val pkg = event.packageName ?: return
-        wlog(pkg, AccessibilityEvent.eventTypeToString(event.eventType), LOCK_APP_PACKAGES.contains(pkg))
-        if (LOCK_APP_PACKAGES.contains(pkg)) {
-            deviceShield.show()
-        } else {
-            deviceShield.hide()
+        serviceInfo = serviceInfo.apply {
+            eventTypes = AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED
         }
+    }
+
+    override fun onAccessibilityEvent(event: AccessibilityEvent) {
+        viewModel.changeWindowsContent(event.packageName)
     }
 
     override fun onDestroy() {

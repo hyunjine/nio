@@ -1,4 +1,4 @@
-package com.hyunjine.lock
+package com.hyunjine.lock.shield_ui
 
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE
@@ -12,9 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.setViewTreeLifecycleOwner
-import androidx.lifecycle.setViewTreeViewModelStoreOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
-import com.hyunjine.common.log.wlog
 
 class DeviceShield(
     private val context: Context
