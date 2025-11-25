@@ -1,7 +1,7 @@
 package com.hyunjine.nio.module.repo
 
 import com.hyunjine.clothes.ClothesRepository
-import com.hyunjine.lock.LockRepository
+import com.hyunjine.focus.LockRepository
 import com.hyunjine.nio.clothes.ClothesRepositoryImpl
 import com.hyunjine.nio.lock.LockRepositoryImpl
 import dagger.Binds

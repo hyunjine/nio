@@ -1,4 +1,4 @@
-package com.hyunjine.lock
+package com.hyunjine.focus
 
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime

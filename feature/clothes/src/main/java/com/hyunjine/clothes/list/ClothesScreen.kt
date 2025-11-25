@@ -56,6 +56,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.hyunjine.clothes.list.model.ClothesItemModel
+import com.hyunjine.velo_android.loader.AndroidImageLoader
+import com.hyunjine.velo_core.VeloImage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -132,16 +134,15 @@ fun ClothesItem(
             onLongClick = { showDialog = true }
         )
     ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(model.thumbnail)
-                .build(),
+        VeloImage(
+            url = model.thumbnail.toString(),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
-                .clip(RoundedCornerShape(16.dp))
+                .clip(RoundedCornerShape(16.dp)),
+            imageLoader = AndroidImageLoader,
         )
         Text(
             text = model.description,

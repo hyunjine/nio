@@ -1,6 +1,6 @@
 package com.hyunjine.nio.lock
 
-import com.hyunjine.lock.LockRepository
+import com.hyunjine.focus.LockRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import java.time.LocalDateTime

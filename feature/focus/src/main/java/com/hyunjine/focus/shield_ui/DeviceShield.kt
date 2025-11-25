@@ -1,4 +1,4 @@
-package com.hyunjine.lock.shield_ui
+package com.hyunjine.focus.shield_ui
 
 import android.content.Context
 import android.content.Context.WINDOW_SERVICE

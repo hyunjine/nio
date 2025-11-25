@@ -41,7 +41,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(projects.feature.clothes)
-    implementation(projects.feature.lock)
+    implementation(projects.feature.focus)
 
     implementation(platform(libs.superbase.bom))
     api(libs.superbase.postgrest)

@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.hyunjine.lock"
+    namespace = "com.hyunjine.focus"
 }

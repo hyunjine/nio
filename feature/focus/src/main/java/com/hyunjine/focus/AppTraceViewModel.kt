@@ -1,5 +1,6 @@
-package com.hyunjine.lock
+package com.hyunjine.focus
 
+import com.hyunjine.common.log.wlog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,6 +29,7 @@ class AppTraceViewModel(
      */
     val screenLockState: StateFlow<Boolean> = activatedPackageName.combine(repository.getFocusModeFinishTime()) { packageName, finishTime ->
         // 포그라운드 앱이 LOCK_APP_PACKAGES에 포함되어 있고, finishTime이 현재시간보다 이후이면 활성화 시킵니다.
+        wlog(packageName)
         finishTime != null && LOCK_APP_PACKAGES.contains(packageName) && finishTime.isAfter(LocalDateTime.now())
     }.stateIn(scope = coroutineScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = false)
 

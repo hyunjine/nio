@@ -19,6 +19,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+//        mavenLocal()
     }
 }
 
@@ -31,4 +32,4 @@ include(":feature")
 include(":feature:clothes")
 include(":common")
 include(":feature:d-day")
-include(":feature:lock")
+include(":feature:focus")
