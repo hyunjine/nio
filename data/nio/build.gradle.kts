@@ -37,11 +37,13 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(projects.feature.clothes)
     implementation(projects.feature.focus)
+    implementation(projects.feature.dDay)
 
     implementation(platform(libs.superbase.bom))
     api(libs.superbase.postgrest)
@@ -52,4 +54,6 @@ dependencies {
     api(libs.ktor.client.logging)
 
     implementation(libs.jsoup)
+
+    implementation(libs.androidx.datastore.preferences)
 }

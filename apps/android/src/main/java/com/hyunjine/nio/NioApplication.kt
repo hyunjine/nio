@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Intent
 import android.content.IntentFilter
 import com.hyunjine.common.log.startLog
-import com.hyunjine.d_day.ScreenOnReceiver
+import com.hyunjine.d_day.screen_receiver.ScreenOnReceiver
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

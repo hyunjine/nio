@@ -1,8 +1,10 @@
 package com.hyunjine.nio.module.repo
 
 import com.hyunjine.clothes.ClothesRepository
+import com.hyunjine.d_day.DDayRepository
 import com.hyunjine.focus.LockRepository
 import com.hyunjine.nio.clothes.ClothesRepositoryImpl
+import com.hyunjine.nio.d_day.DDayRepositoryImpl
 import com.hyunjine.nio.lock.LockRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -20,4 +22,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindLockRepository(impl: LockRepositoryImpl): LockRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindDDayRepository(impl: DDayRepositoryImpl): DDayRepository
 }

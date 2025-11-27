@@ -1,4 +1,4 @@
-package com.hyunjine.d_day
+package com.hyunjine.d_day.widget
 
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
