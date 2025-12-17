@@ -4,6 +4,7 @@ import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -14,6 +15,10 @@ import java.util.Optional
 
 internal fun DependencyHandlerScope.implementation(path: Optional<*>) {
     add("implementation", path.get())
+}
+
+internal fun DependencyHandlerScope.implementation(dependency: Any) {
+    add("implementation", dependency)
 }
 
 internal fun DependencyHandlerScope.implementation(path: ProjectDependency) {
@@ -30,6 +35,14 @@ internal fun DependencyHandlerScope.testImplementation(path: Optional<*>) {
 
 internal fun DependencyHandlerScope.androidTestImplementation(path: Optional<*>) {
     add("androidTestImplementation", path.get())
+}
+
+internal fun DependencyHandlerScope.androidTestImplementation(dependency: Dependency) {
+    add("androidTestImplementation", dependency)
+}
+
+internal fun DependencyHandlerScope.debugImplementation(path: Optional<*>) {
+    add("debugImplementation", path.get())
 }
 
 internal fun DependencyHandlerScope.ksp(path: Optional<*>) {

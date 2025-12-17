@@ -48,7 +48,7 @@ class FeatureConventionPlugin : Plugin<Project> {
                 dependencies {
                     implementation(libs.findLibrary("androidx.core.ktx"))
                     implementation(libs.findLibrary("androidx.lifecycle.runtime.ktx"))
-                    implementation(libs.findLibrary("coil"))
+                    implementation(libs.findLibrary("lifecycle.viewmodel"))
                     implementation(project(":common"))
                 }
             }

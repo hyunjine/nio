@@ -53,8 +53,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.hyunjine.clothes.list.model.ClothesItemModel
 import com.hyunjine.velo_android.loader.AndroidImageLoader
 import com.hyunjine.velo_core.VeloImage
