@@ -82,7 +82,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.r
 kotlin-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 
 superbase-bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "bom" }
-superbase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt", version.ref = "bom" }
+superbase-postgrest = { module = "io.github.jan-tennert.supabase:postgrest-kt" }
 
 javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }

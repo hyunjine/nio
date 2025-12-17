@@ -45,7 +45,7 @@ dependencies {
     implementation(projects.feature.focus)
     implementation(projects.feature.dDay)
 
-    implementation(platform(libs.superbase.bom))
+    api(platform(libs.superbase.bom))
     api(libs.superbase.postgrest)
 
     api(libs.ktor.client.core)
