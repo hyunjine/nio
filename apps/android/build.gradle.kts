@@ -20,10 +20,10 @@ android {
         minSdk = 28
         targetSdk = 36
 
-        val major = 1 ; val minor = 2 ; val patch = 0
+        val major = 1 ; val minor = 3 ; val patch = 0
 
         versionName = "${major}.${minor}.${patch}"
-        versionCode = 3
+        versionCode = 4
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
