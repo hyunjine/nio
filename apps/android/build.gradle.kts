@@ -51,7 +51,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.firebase.crashlytics)
     testImplementation(libs.junit)
-
     implementation(projects.common)
     implementation(projects.data.nio)
     implementation(projects.feature.clothes)
