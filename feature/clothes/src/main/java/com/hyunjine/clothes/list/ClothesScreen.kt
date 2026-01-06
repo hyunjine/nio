@@ -54,6 +54,8 @@ import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjine.clothes.list.model.ClothesItemModel
+import com.hyunjine.common.ui.theme.NioTheme
+import com.hyunjine.common.ui.theme.typography.typography
 import com.hyunjine.velo_android.loader.AndroidImageLoader
 import com.hyunjine.velo_core.VeloImage
 import kotlinx.coroutines.delay
@@ -244,14 +246,16 @@ fun AddClothes(
 @Composable
 @Preview(showBackground = true)
 fun ClothesPreview() {
-    val dummy = List(
-        10
-    ) {
-        val link = "https://picsum.photos/400/200"
-        ClothesItemModel(id = 0, link = link, thumbnail = link, description = "테스트입니다.")
+    NioTheme {
+        val dummy = List(
+            10
+        ) {
+            val link = "https://picsum.photos/400/200"
+            ClothesItemModel(id = 0, link = link, thumbnail = link, description = "테스트입니다.")
+        }
+        ClothesGrid(
+            clothes = dummy,
+            onClickRemoveClothes = {}
+        )
     }
-    ClothesGrid(
-        clothes = dummy,
-        onClickRemoveClothes = {}
-    )
 }

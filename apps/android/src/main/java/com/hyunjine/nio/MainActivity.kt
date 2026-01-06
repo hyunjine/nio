@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hyunjine.clothes.list.ClothesScreen
+import com.hyunjine.common.ui.theme.NioTheme
 import com.hyunjine.focus.main.FocusScreen
 import dagger.hilt.android.AndroidEntryPoint
 
