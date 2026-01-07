@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.hyunjine.clothes.list.ClothesScreen
 import com.hyunjine.common.ui.theme.NioTheme
 import com.hyunjine.focus.main.FocusScreen
+import com.hyunjine.timer.TimerScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,8 +46,7 @@ fun NioApp(
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding()
-            .navigationBarsPadding()
-            .padding(horizontal = 22.dp),
+            .navigationBarsPadding(),
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
@@ -71,6 +71,11 @@ fun NioApp(
         ) {
             FocusScreen(modifier = Modifier.fillMaxSize())
         }
+        composable(
+            route = NioScreen.Timer.name
+        ) {
+            TimerScreen(modifier = Modifier.fillMaxSize())
+        }
     }
 }
 
@@ -78,4 +83,5 @@ enum class NioScreen(val screenName: String) {
     Home("홈"),
     Clothes("옷"),
     Lock("집중 모드"),
+    Timer("타이머"),
 }

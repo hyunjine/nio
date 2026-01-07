@@ -17,8 +17,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hyunjine.common.ui.theme.Black
-import com.hyunjine.common.ui.theme.Grey
+import com.hyunjine.common.ui.theme.black200
+import com.hyunjine.common.ui.theme.black900
 
 @Composable
 fun HomeScreen(
@@ -50,13 +50,13 @@ fun HomeComponent(
         modifier = Modifier
             .height(200.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(color = Grey)
+            .background(color = black200)
             .clickable { onClick(type) }
     ) {
         Text(
             text = type.screenName,
             fontSize = 24.sp,
-            color = Black,
+            color = black900,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .align(Alignment.Center)

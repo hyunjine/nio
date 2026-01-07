@@ -56,6 +56,7 @@ dependencies {
     implementation(projects.feature.clothes)
     implementation(projects.feature.dDay)
     implementation(projects.feature.focus)
+    implementation(projects.feature.timer)
 
     implementation(libs.navigation)
 }
