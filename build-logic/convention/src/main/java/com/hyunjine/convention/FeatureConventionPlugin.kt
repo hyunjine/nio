@@ -49,6 +49,7 @@ class FeatureConventionPlugin : Plugin<Project> {
                     implementation(libs.findLibrary("androidx.core.ktx"))
                     implementation(libs.findLibrary("androidx.lifecycle.runtime.ktx"))
                     implementation(libs.findLibrary("lifecycle.viewmodel"))
+                    implementation(libs.findLibrary("constraintlayout"))
                     implementation(project(":common"))
                 }
             }

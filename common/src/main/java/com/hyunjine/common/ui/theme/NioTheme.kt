@@ -2,6 +2,8 @@ package com.hyunjine.common.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -14,6 +16,7 @@ import com.hyunjine.common.ui.theme.typography.LocalAppTypography
 import com.hyunjine.common.ui.theme.typography.NioTypography
 import com.hyunjine.common.ui.theme.typography.NioTypographyInstance
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NioTheme(
     typography: NioTypography = NioTypographyInstance,
@@ -32,6 +35,7 @@ fun NioTheme(
     }
 
     CompositionLocalProvider(
+        LocalRippleConfiguration provides null,
         LocalAppTypography provides typography
     ) {
         MaterialTheme(

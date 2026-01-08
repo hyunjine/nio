@@ -36,6 +36,7 @@ velo = "0.2.0"
 materialIcon="1.7.8"
 androidxAppcompat = "1.7.1"
 googleMaterial = "1.13.0"
+constraintlayout = "1.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -96,6 +97,8 @@ velo-core = { group = "io.github.hyunjine", name = "velo-core", version.ref = "v
 velo-android = { group = "io.github.hyunjine", name = "velo-android", version.ref = "velo" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
+
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayout" }
 
 [bundles]
 room = [
