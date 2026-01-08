@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <string name="d"></string>-->
+    <string name="timer_main_screen_appbar_title">타이머</string>
+    <string name="timer_main_screen_appbar_right_text">추가</string>
+    <string name="timer_main_screen_empty_list">타이머를 추가해보세요.</string>
 </resources>

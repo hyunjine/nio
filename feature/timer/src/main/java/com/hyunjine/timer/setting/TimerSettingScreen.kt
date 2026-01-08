@@ -1,4 +1,4 @@
-package com.hyunjine.timer
+package com.hyunjine.timer.setting
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
