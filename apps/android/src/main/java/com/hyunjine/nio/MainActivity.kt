@@ -74,7 +74,10 @@ fun NioApp(
         composable(
             route = NioScreen.Timer.name
         ) {
-            TimerMainScreen(modifier = modifier.statusBarsPadding())
+            TimerMainScreen(
+                modifier = modifier.statusBarsPadding(),
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }

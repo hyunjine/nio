@@ -1,26 +1,28 @@
 package com.hyunjine.timer.setting
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.hyunjine.common.ui.theme.typography.typography
+import androidx.compose.ui.unit.dp
+import com.hyunjine.common.log.wlog
+import com.hyunjine.common.ui.component.VerticalWheelPicker
 
 @Composable
 fun TimerSettingScreen(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
     ) {
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = typography.displayLarge,
-            value = "",
-            onValueChange = { },
-            label = { Text(text = "제목") }
+        Spacer(Modifier.height(250.dp))
+        VerticalWheelPicker(
+            items = List(90) { "${it.inc()}" },
+            onItemSelected = {
+                wlog(it)
+            }
         )
     }
 }
@@ -28,5 +30,9 @@ fun TimerSettingScreen(modifier: Modifier = Modifier) {
 @Composable
 @Preview(showBackground = true)
 fun TimerSettingScreenPreview() {
-    TimerSettingScreen(Modifier.fillMaxSize())
+    TimerSettingScreen(
+        modifier = Modifier
+            .statusBarsPadding()
+            .fillMaxSize()
+    )
 }

@@ -27,7 +27,5 @@ class TimerMainViewModel @Inject constructor(): ViewModel() {
             )
         }
         emit(items)
-        delay(1000L)
-        emit(emptyList())
     }.stateIn(scope = viewModelScope, started = SharingStarted.WhileSubscribed(5_000), initialValue = listOf())
 }

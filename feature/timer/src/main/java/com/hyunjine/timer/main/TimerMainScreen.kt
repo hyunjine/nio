@@ -3,7 +3,6 @@ package com.hyunjine.timer.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -11,44 +10,30 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Phone
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SegmentedButtonDefaults.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjine.common.R
-import com.hyunjine.common.log.wlog
 import com.hyunjine.common.ui.component.Appbar
 import com.hyunjine.common.ui.component.TouchBox
 import com.hyunjine.common.ui.theme.NioTheme
@@ -57,7 +42,6 @@ import com.hyunjine.common.ui.theme.black600
 import com.hyunjine.common.ui.theme.black700
 import com.hyunjine.common.ui.theme.black800
 import com.hyunjine.common.ui.theme.black900
-import com.hyunjine.common.ui.theme.blue900
 import com.hyunjine.common.ui.theme.typography.typography
 import com.hyunjine.common.ui.theme.white
 import com.hyunjine.common.util.minutes
@@ -71,27 +55,28 @@ import kotlin.time.toDuration
 @Composable
 fun TimerMainScreen(
     modifier: Modifier = Modifier,
-    viewModel: TimerMainViewModel = hiltViewModel()
+    viewModel: TimerMainViewModel = hiltViewModel(),
+    onBack: () -> Unit = {},
 ) {
     val items by viewModel.timerCards.collectAsStateWithLifecycle()
     TimerMainScreen(
         modifier = modifier,
-        items = items
+        items = items,
+        onBack = onBack
     )
 }
 
 @Composable
 fun TimerMainScreen(
     modifier: Modifier = Modifier,
-    items: List<TimerCardModel>
+    items: List<TimerCardModel>,
+    onBack: () -> Unit = {},
 ) {
     Column(modifier = modifier) {
         Appbar(
             title = stringResource(R.string.timer_main_screen_appbar_title),
             rightText = stringResource(R.string.timer_main_screen_appbar_right_text),
-            onLeftIconClick = {
-
-            },
+            onLeftIconClick = onBack,
             onRightTextClick = {
 
             }
@@ -115,7 +100,10 @@ fun TimerMainScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 overscrollEffect = null
             ) {
-                items(items) { item ->
+                items(
+                    items = items,
+                    key = { item -> item.id }
+                ) { item ->
                     TimerCard(item)
                 }
             }
