@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hyunjine.common.log.wlog
+import com.hyunjine.common.ui.component.TimePicker
 import com.hyunjine.common.ui.component.VerticalWheelPicker
 
 @Composable
@@ -18,12 +19,9 @@ fun TimerSettingScreen(modifier: Modifier = Modifier) {
         modifier = modifier
     ) {
         Spacer(Modifier.height(250.dp))
-        VerticalWheelPicker(
-            items = List(90) { "${it.inc()}" },
-            onItemSelected = {
-                wlog(it)
-            }
-        )
+        TimePicker() {
+            wlog(it)
+        }
     }
 }
 

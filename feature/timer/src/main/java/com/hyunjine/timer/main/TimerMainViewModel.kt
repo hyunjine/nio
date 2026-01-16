@@ -5,11 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.hyunjine.timer.main.model.TimerCardModel
 import com.hyunjine.timer.main.model.TimerState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import kotlin.time.DurationUnit
