@@ -1,4 +1,4 @@
-package com.hyunjine.common.util
+package com.hyunjine.common.extension
 
 import kotlin.time.Duration
 

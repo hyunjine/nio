@@ -21,7 +21,7 @@ class TimerMainViewModel @Inject constructor(): ViewModel() {
                 id = index,
                 name = "라면",
                 duration = 3.toDuration(DurationUnit.MINUTES) + 30.toDuration(DurationUnit.SECONDS),
-                state = TimerState.IDLE
+                state = TimerState.Paused
             )
         }
         emit(items)

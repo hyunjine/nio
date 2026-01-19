@@ -34,6 +34,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hyunjine.common.R
+import com.hyunjine.common.extension.minutes
+import com.hyunjine.common.extension.plus
+import com.hyunjine.common.extension.seconds
 import com.hyunjine.common.ui.component.Appbar
 import com.hyunjine.common.ui.component.TouchBox
 import com.hyunjine.common.ui.theme.NioTheme
@@ -44,11 +47,9 @@ import com.hyunjine.common.ui.theme.black800
 import com.hyunjine.common.ui.theme.black900
 import com.hyunjine.common.ui.theme.typography.typography
 import com.hyunjine.common.ui.theme.white
-import com.hyunjine.common.util.minutes
-import com.hyunjine.common.util.plus
-import com.hyunjine.common.util.seconds
 import com.hyunjine.timer.main.model.TimerCardModel
 import com.hyunjine.timer.main.model.TimerState
+import java.util.Locale
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
@@ -139,7 +140,7 @@ fun TimerCard(
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = String.format("%02d:%02d", model.duration.minutes, model.duration.seconds),
+                    text = String.format(Locale.getDefault(), "%02d:%02d", model.duration.minutes, model.duration.seconds),
                     style = typography.titleSmall,
                     color = black800,
                     maxLines = 1,
@@ -182,7 +183,7 @@ fun TimerScreenPreview() {
                     id = index,
                     name = "Timer $index".repeat(4),
                     duration = 30.toDuration(DurationUnit.DAYS) + 30.toDuration(DurationUnit.SECONDS),
-                    state = TimerState.IDLE
+                    state = TimerState.Paused
                 )
             }
         )

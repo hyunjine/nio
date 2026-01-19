@@ -32,6 +32,7 @@ import androidx.core.net.toUri
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun FocusScreen(
@@ -55,7 +56,7 @@ fun FocusScreen(
         val timePickerDialog = TimePickerDialog(
             context,
             { _, hour: Int, minute: Int ->
-                timeText = String.format("%02d:%02d", hour, minute)
+                timeText = String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
             },
             LocalDateTime.now().hour,
             LocalDateTime.now().minute,

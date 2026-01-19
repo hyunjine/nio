@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.hyunjine.common.ui.theme.NioTheme
 import com.hyunjine.common.ui.theme.white
 import com.hyunjine.timer.main.TimerMainScreen
+import com.hyunjine.timer.running.TimerRunningScreen
 import com.hyunjine.timer.setting.TimerSettingScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,12 +38,18 @@ class TestActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NioTheme {
-                TimerSettingScreen(
+                TimerRunningScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(white)
                         .statusBarsPadding()
                 )
+//                TimerSettingScreen(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                        .background(white)
+//                        .statusBarsPadding()
+//                )
             }
         }
     }

@@ -3,4 +3,12 @@
     <string name="timer_main_screen_appbar_title">타이머</string>
     <string name="timer_main_screen_appbar_right_text">추가</string>
     <string name="timer_main_screen_empty_list">타이머를 추가해보세요.</string>
+
+    <string name="timer_setting_screen_appbar_title">타이머 추가</string>
+    <string name="timer_setting_screen_appbar_right_text">저장</string>
+    <string name="timer_setting_screen_timer_name_placeholder">타이머 이름</string>
+    <string name="timer_setting_screen_sub_timer_title">보조 타이머</string>
+    <string name="timer_setting_screen_sub_timer_add">추가</string>
+    <string name="timer_setting_screen_sub_timer_empty_list">추가된 보조 타이머가 없어요.</string>
+    <string name="timer_setting_screen_sub_timer_after_time">시작하고 %d분%d초 후</string>
 </resources>

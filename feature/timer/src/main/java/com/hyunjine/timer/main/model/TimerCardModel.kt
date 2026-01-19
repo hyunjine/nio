@@ -10,6 +10,6 @@ data class TimerCardModel(
 )
 
 enum class TimerState {
-    RUNNING,
-    IDLE
+    Running,
+    Paused
 }
