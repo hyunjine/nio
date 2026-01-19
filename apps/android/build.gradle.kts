@@ -58,5 +58,7 @@ dependencies {
     implementation(projects.feature.focus)
     implementation(projects.feature.timer)
 
-    implementation(libs.navigation)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
+    implementation(libs.navigation3.viewmodel)
 }

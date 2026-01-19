@@ -4,18 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
+import androidx.navigation3.ui.NavDisplay
 import com.hyunjine.clothes.list.ClothesScreen
 import com.hyunjine.common.ui.theme.NioTheme
 import com.hyunjine.common.ui.theme.white
@@ -38,53 +40,74 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NioApp(
-    navController: NavHostController = rememberNavController()
 ) {
-    NavHost(
-        navController = navController,
-        startDestination = NioScreen.Home.name,
-        modifier = Modifier,
-        enterTransition = { EnterTransition.None },
-        exitTransition = { ExitTransition.None },
-        popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }
-    ) {
-        composable(
-            route = NioScreen.Home.name
-        ) {
-            HomeScreen(
-                onClick = { screen ->
-                    navController.navigate(screen.name)
-                }
+    val backStack = remember { mutableStateListOf<NioScreen>(NioScreen.Home) }
+    val modifier = Modifier
+        .fillMaxSize()
+        .background(white)
+    NavDisplay(
+        backStack = backStack,
+        transitionSpec = {
+            ContentTransform(
+                targetContentEnter = EnterTransition.None,
+                initialContentExit = ExitTransition.None
             )
-        }
-        val modifier = Modifier
-            .fillMaxSize()
-            .background(white)
-        composable(
-            route = NioScreen.Clothes.name
-        ) {
-            ClothesScreen(modifier = modifier)
-        }
-        composable(
-            route = NioScreen.Lock.name
-        ) {
-            FocusScreen(modifier = modifier)
-        }
-        composable(
-            route = NioScreen.Timer.name
-        ) {
-            TimerMainScreen(
-                modifier = modifier.statusBarsPadding(),
-                onBack = { navController.popBackStack() }
+        },
+        popTransitionSpec = {
+            ContentTransform(
+                targetContentEnter = EnterTransition.None,
+                initialContentExit = ExitTransition.None
             )
+        },
+        predictivePopTransitionSpec = {
+            ContentTransform(
+                targetContentEnter = EnterTransition.None,
+                initialContentExit = ExitTransition.None
+            )
+        },
+        onBack = { backStack.removeLastOrNull() },
+        entryDecorators = listOf(
+            // Add the default decorators for managing scenes and saving state
+            rememberSaveableStateHolderNavEntryDecorator(),
+            // Then add the view model store decorator
+            rememberViewModelStoreNavEntryDecorator()
+        ),
+        entryProvider = entryProvider {
+            entry<NioScreen.Home> {
+                HomeScreen(
+                    modifier = modifier,
+                    onClick = { screen -> backStack.add(screen) }
+                )
+            }
+            entry<NioScreen.Lock> {
+                FocusScreen(modifier = modifier)
+            }
+            entry<NioScreen.Timer> {
+                TimerMainScreen(
+                    modifier = modifier.statusBarsPadding(),
+                    onBack = { backStack.removeLastOrNull() }
+                )
+            }
+            entry<NioScreen.Clothes> {
+                ClothesScreen(modifier = modifier)
+            }
         }
-    }
+    )
 }
 
-enum class NioScreen(val screenName: String) {
-    Home("홈"),
-    Clothes("옷"),
-    Lock("집중 모드"),
-    Timer("타이머"),
+sealed interface NioScreen {
+    val name: String
+
+    data object Home: NioScreen {
+        override val name: String = "홈"
+    }
+    data object Clothes: NioScreen {
+        override val name: String = "옷"
+    }
+    data object Lock: NioScreen {
+        override val name: String = "집중"
+    }
+    data object Timer: NioScreen {
+        override val name: String = "타이머"
+    }
 }

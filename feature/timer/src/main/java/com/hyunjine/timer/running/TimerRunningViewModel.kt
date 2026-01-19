@@ -1,24 +1,19 @@
 package com.hyunjine.timer.running
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hyunjine.common.util.BaseViewModel
 import com.hyunjine.timer.main.model.TimerState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import javax.inject.Inject
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
-class TimerRunningViewModel @Inject constructor(): ViewModel() {
+class TimerRunningViewModel @Inject constructor(): BaseViewModel() {
     private val uiEvent = MutableSharedFlow<TimerRunningScreenEvent>()
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -41,7 +36,7 @@ class TimerRunningViewModel @Inject constructor(): ViewModel() {
                 )
             }
         }
-    }.stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = MainTimer(
+    }.stateIn(initialValue = MainTimer(
         name = "Burt Padilla",
         duration = 10.seconds,
         finishTime = LocalDateTime.now(),

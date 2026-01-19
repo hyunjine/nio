@@ -31,10 +31,15 @@ fun HomeScreen(
         verticalArrangement = Arrangement.spacedBy(26.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-
-        items(NioScreen.entries.filter { it != NioScreen.Home }) {
+        items(
+            listOf(
+                NioScreen.Clothes,
+                NioScreen.Lock,
+                NioScreen.Timer
+            )
+        ) { item ->
             HomeComponent(
-                type = it,
+                type = item,
                 onClick = onClick
             )
         }
@@ -54,7 +59,7 @@ fun HomeComponent(
             .clickable { onClick(type) }
     ) {
         Text(
-            text = type.screenName,
+            text = type.name,
             fontSize = 24.sp,
             color = black900,
             fontWeight = FontWeight.Bold,

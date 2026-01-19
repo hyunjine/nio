@@ -153,7 +153,7 @@ data class MainTimer(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .constrainAs(finishTimeId) {
-                        top.linkTo(durationId.bottom, margin = 41.dp)
+                        top.linkTo(durationId.bottom, margin = 40.dp)
                         end.linkTo(parent.end)
                         bottom.linkTo(parent.bottom)
                         start.linkTo(parent.start)
@@ -167,10 +167,10 @@ data class MainTimer(
                     contentDescription = null,
                     tint = black700
                 )
-                Spacer(modifier = Modifier.width(3.dp))
+                Spacer(modifier = Modifier.width(2.dp))
                 Text(
                     text = finishTime.format(formatter),
-                    style = typography.labelMedium,
+                    style = typography.labelLarge,
                     color = black700,
                 )
             }
