@@ -38,6 +38,7 @@ materialIcon="1.7.8"
 androidxAppcompat = "1.7.1"
 googleMaterial = "1.13.0"
 constraintlayout = "1.1.1"
+screenshot = "0.0.1-alpha13"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -104,6 +105,8 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayout" }
 
+screenshot-validation-api = { group = "com.android.tools.screenshot", name = "screenshot-validation-api", version.ref = "screenshot"}
+
 [bundles]
 room = [
     "androidx-room-compiler",
@@ -128,6 +131,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 android-library = { id = "com.android.library", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
+screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
 
 # custom plugin
 feature = { id = "feature.plugin" }

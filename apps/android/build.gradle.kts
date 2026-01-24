@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
-
+    alias(libs.plugins.screenshot)
     alias(libs.plugins.bundle.compose)
     alias(libs.plugins.bundle.hilt)
     alias(libs.plugins.bundle.serialization)
@@ -43,6 +43,7 @@ android {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
+    experimentalProperties["android.experimental.enableScreenshotTest"] = true
 }
 
 dependencies {
@@ -61,4 +62,7 @@ dependencies {
     implementation(libs.navigation3.runtime)
     implementation(libs.navigation3.ui)
     implementation(libs.navigation3.viewmodel)
+
+    screenshotTestImplementation(libs.screenshot.validation.api)
+    screenshotTestImplementation(libs.androidx.ui.tooling)
 }

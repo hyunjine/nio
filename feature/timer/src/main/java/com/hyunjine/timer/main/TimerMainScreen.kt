@@ -57,7 +57,7 @@ import kotlin.time.toDuration
 fun TimerMainScreen(
     modifier: Modifier = Modifier,
     viewModel: TimerMainViewModel = hiltViewModel(),
-    onBack: () -> Unit = {},
+    onBack: () -> Unit = { },
 ) {
     val items by viewModel.timerCards.collectAsStateWithLifecycle()
     TimerMainScreen(
