@@ -58,12 +58,14 @@ fun TimerMainScreen(
     modifier: Modifier = Modifier,
     viewModel: TimerMainViewModel = hiltViewModel(),
     onBack: () -> Unit = { },
+    onTimerSelected: (TimerCardModel) -> Unit = {}
 ) {
     val items by viewModel.timerCards.collectAsStateWithLifecycle()
     TimerMainScreen(
         modifier = modifier,
         items = items,
-        onBack = onBack
+        onBack = onBack,
+        onTimerSelected = onTimerSelected
     )
 }
 
@@ -72,6 +74,7 @@ fun TimerMainScreen(
     modifier: Modifier = Modifier,
     items: List<TimerCardModel>,
     onBack: () -> Unit = {},
+    onTimerSelected: (TimerCardModel) -> Unit = {}
 ) {
     Column(modifier = modifier) {
         Appbar(
@@ -105,7 +108,10 @@ fun TimerMainScreen(
                     items = items,
                     key = { item -> item.id }
                 ) { item ->
-                    TimerCard(item)
+                    TimerCard(
+                        model = item,
+                        onClick = onTimerSelected
+                    )
                 }
             }
         }
@@ -116,12 +122,13 @@ fun TimerMainScreen(
 fun TimerCard(
     model: TimerCardModel,
     modifier: Modifier = Modifier,
+    onClick: (TimerCardModel) -> Unit = {}
 ) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(24.dp))
             .background(black100)
-            .clickable {  },
+            .clickable { onClick(model) },
     ) {
         Row(
             modifier = Modifier

@@ -8,8 +8,3 @@ data class TimerCardModel(
     val duration: Duration,
     val state: TimerState
 )
-
-enum class TimerState {
-    Running,
-    Paused
-}

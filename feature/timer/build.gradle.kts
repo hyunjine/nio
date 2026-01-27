@@ -7,5 +7,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.rxjava)
+    implementation(libs.rxandroid)
+    implementation(libs.kotlinx.coroutines.rx3)
 }

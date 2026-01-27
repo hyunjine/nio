@@ -11,11 +11,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.hyunjine.clothes.list.ClothesScreen
@@ -23,7 +23,9 @@ import com.hyunjine.common.ui.theme.NioTheme
 import com.hyunjine.common.ui.theme.white
 import com.hyunjine.focus.main.FocusScreen
 import com.hyunjine.timer.main.TimerMainScreen
+import com.hyunjine.timer.running.TimerRunningScreen
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.Serializable
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun NioApp(
 ) {
-    val backStack = remember { mutableStateListOf<NioScreen>(NioScreen.Home) }
+    val backStack = rememberNavBackStack(NioScreen.Home)
     val modifier = Modifier
         .fillMaxSize()
         .background(white)
@@ -85,6 +87,18 @@ fun NioApp(
             entry<NioScreen.Timer> {
                 TimerMainScreen(
                     modifier = modifier.statusBarsPadding(),
+                    onBack = { backStack.removeLastOrNull() },
+                    onTimerSelected = {
+                        backStack.add(
+                            TimerRunningScreen(
+                                timerState = it.state
+                            )
+                        )
+                    }
+                )
+            }
+            entry<TimerRunningScreen> { screen ->
+                screen(
                     onBack = { backStack.removeLastOrNull() }
                 )
             }
@@ -95,18 +109,22 @@ fun NioApp(
     )
 }
 
-sealed interface NioScreen {
+sealed interface NioScreen: NavKey {
     val name: String
 
+    @Serializable
     data object Home: NioScreen {
         override val name: String = "홈"
     }
+    @Serializable
     data object Clothes: NioScreen {
         override val name: String = "옷"
     }
+    @Serializable
     data object Lock: NioScreen {
         override val name: String = "집중"
     }
+    @Serializable
     data object Timer: NioScreen {
         override val name: String = "타이머"
     }

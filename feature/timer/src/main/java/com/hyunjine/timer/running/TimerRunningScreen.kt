@@ -1,10 +1,24 @@
 package com.hyunjine.timer.running
 
-import android.R.attr.strokeWidth
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,59 +28,103 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavKey
 import com.hyunjine.common.R
 import com.hyunjine.common.extension.minutes
 import com.hyunjine.common.extension.seconds
+import com.hyunjine.common.extension.spToDp
 import com.hyunjine.common.log.wlog
+import com.hyunjine.common.ui.component.Appbar
 import com.hyunjine.common.ui.theme.NioTheme
 import com.hyunjine.common.ui.theme.black100
+import com.hyunjine.common.ui.theme.black200
 import com.hyunjine.common.ui.theme.black700
 import com.hyunjine.common.ui.theme.black900
 import com.hyunjine.common.ui.theme.blue900
+import com.hyunjine.common.ui.theme.red600
 import com.hyunjine.common.ui.theme.typography.typography
+import com.hyunjine.common.ui.theme.white
 import com.hyunjine.timer.main.model.TimerState
+import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
-@Composable
-fun TimerRunningScreen(
-    modifier: Modifier = Modifier,
-    viewModel: TimerRunningViewModel = hiltViewModel(),
-    onBack: () -> Unit = {},
+@Serializable
+data class TimerRunningScreen(
+//    val name: String,
+    val state: TimerState,
+//    val wholeDuration: Duration,
+//    val duration: Duration,
 ) {
-    val mainTimer by viewModel.mainTimer.collectAsStateWithLifecycle()
-    TimerRunningScreen(
-        modifier = modifier
-            .padding(horizontal = 22.dp),
-        mainTimer = mainTimer,
-        onBack = onBack
-    )
-}
-
-@Composable
-fun TimerRunningScreen(
-    modifier: Modifier = Modifier,
-    mainTimer: MainTimer,
-    onBack: () -> Unit = {},
-) {
-    Row(
-        modifier = modifier
+    @Composable
+    operator fun invoke(
+        viewModel: TimerRunningViewModel = hiltViewModel(
+            creationCallback = { factory: TimerRunningViewModel.Factory ->
+                factory.create(this)
+            },
+        ),
+        onBack: () -> Unit = {},
     ) {
-        mainTimer()
+//        val mainTimer by viewModel.mainTimer.collectAsStateWithLifecycle()
+//        val controlBox by viewModel.controlBox.collectAsStateWithLifecycle()
+//
+//        invoke(
+//            mainTimer = mainTimer,
+//            controlBox = controlBox,
+//            onBack = onBack,
+//            onClickRemove = {
+//                viewModel.event(TimerRunningScreenEvent.RemoveTimer)
+//            },
+//            onClickControl = {
+//                viewModel.event(TimerRunningScreenEvent.ToggleTimer(it))
+//            }
+//        )
+    }
+
+    @Composable
+    operator fun invoke(
+        mainTimer: MainTimer,
+        controlBox: ControlBox,
+        onBack: () -> Unit = {},
+        onClickRemove: () -> Unit = {},
+        onClickControl: (TimerState) -> Unit = {}
+    ) {
+        val scrollState = rememberScrollState() // 스크롤 상태 기억
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(white)
+                .statusBarsPadding()
+                .verticalScroll(scrollState),
+        ) {
+            Appbar(
+                title = stringResource(R.string.timer_running_screen_appbar_title),
+                onLeftIconClick = onBack
+            )
+            mainTimer(
+                modifier = Modifier
+                    .padding(horizontal = 22.dp)
+            )
+            Spacer(modifier = Modifier.weight(0.6F))
+            controlBox(
+                onClickRemove = onClickRemove,
+                onClickControl = onClickControl,
+            )
+            Spacer(modifier = Modifier.weight(0.4F))
+        }
     }
 }
 
@@ -83,7 +141,7 @@ data class MainTimer(
         modifier: Modifier = Modifier
     ) {
         ConstraintLayout(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .aspectRatio(1F)
         ) {
@@ -183,8 +241,54 @@ data class ControlBox(
     val timerState: TimerState
 ) {
     @Composable
-    operator fun invoke() {
-
+    operator fun invoke(
+        modifier: Modifier = Modifier,
+        onClickRemove: () -> Unit = {},
+        onClickControl: (TimerState) -> Unit = {}
+    ) {
+        Row(
+            modifier = modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                modifier = Modifier
+                    .widthIn(min = 120.spToDp)
+                    .clip(RoundedCornerShape(23.dp))
+                    .clickable { onClickRemove() }
+                    .background(color = black200)
+                    .padding(vertical = 13.spToDp),
+                text = stringResource(R.string.timer_running_screen_timer_remove),
+                style = typography.labelLargeEmphasized,
+                color = black900,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            val (background, textId, color) = when (timerState) {
+                TimerState.Running -> {
+                    Triple(
+                        red600, R.string.timer_running_screen_timer_pause, white
+                    )
+                }
+                TimerState.Paused -> {
+                    Triple(
+                        blue900, R.string.timer_running_screen_timer_resume, white
+                    )
+                }
+            }
+            Text(
+                modifier = Modifier
+                    .widthIn(min = 120.spToDp)
+                    .clip(RoundedCornerShape(23.dp))
+                    .clickable { onClickControl(timerState) }
+                    .background(color = background)
+                    .padding(vertical = 13.spToDp),
+                text = stringResource(textId),
+                style = typography.labelLargeEmphasized,
+                color = color,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }
 
@@ -201,7 +305,7 @@ data class SubTimer(
 @Preview(showBackground = true)
 fun NonSubTimerPreview() {
     NioTheme {
-        TimerRunningScreen(
+        TimerRunningScreen(TimerState.Running)(
             mainTimer = MainTimer(
                 name = "name",
                 progress = 0.5F,
@@ -209,6 +313,9 @@ fun NonSubTimerPreview() {
                 finishTime = LocalDateTime.now(),
                 timerState = TimerState.Running
             ),
+            controlBox = ControlBox(
+                timerState = TimerState.Running
+            )
         )
     }
 }
